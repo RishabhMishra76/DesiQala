@@ -2,14 +2,16 @@
 
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { CraftPlate } from "@/components/ui/craft-plate";
-import { crafts, craftRegions } from "@/lib/crafts";
+import { crafts, craftRegions, formatCraftStateForFilter } from "@/lib/crafts";
 
 type PillRect = { left: number; top: number; width: number; height: number };
 
 export function CollectionsGrid() {
   const [region, setRegion] = useState<string>("all");
   const [pill, setPill] = useState<PillRect | null>(null);
+  const [showPill, setShowPill] = useState(false);
   const buttonRefs = useRef(new Map<string, HTMLButtonElement>());
+  const filterRef = useRef<HTMLDivElement>(null);
 
   const filtered = useMemo(
     () => (region === "all" ? crafts : crafts.filter((c) => c.state === region)),
@@ -17,15 +19,27 @@ export function CollectionsGrid() {
   );
 
   const options = [
-    { value: "all", label: "All regions", count: crafts.length },
+    { value: "all", label: "All regions", shortLabel: "All", count: crafts.length },
     ...craftRegions.map((r) => ({
       value: r,
       label: r,
+      shortLabel: formatCraftStateForFilter(r, "short"),
       count: crafts.filter((c) => c.state === r).length,
     })),
   ];
 
   useLayoutEffect(() => {
+    const mq = window.matchMedia("(min-width: 640px)");
+    function onMqChange() {
+      setShowPill(mq.matches);
+    }
+    onMqChange();
+    mq.addEventListener("change", onMqChange);
+    return () => mq.removeEventListener("change", onMqChange);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!showPill) return;
     function measure() {
       const el = buttonRefs.current.get(region);
       if (!el) return;
@@ -39,13 +53,18 @@ export function CollectionsGrid() {
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
-  }, [region]);
+  }, [region, showPill, options.length]);
 
   return (
     <>
       <div className="mb-12 flex flex-col gap-4 border-y border-ink py-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="relative flex flex-wrap gap-2" role="group" aria-label="Filter by region">
-          {pill ? (
+        <div
+          ref={filterRef}
+          className="relative -mx-4 flex gap-2 overflow-x-auto overscroll-x-contain px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
+          role="group"
+          aria-label="Filter by region"
+        >
+          {pill && showPill ? (
             <span
               aria-hidden
               className="pointer-events-none absolute bg-ink transition-all duration-[var(--dur-slow)] ease-[var(--ease-out)]"
@@ -64,13 +83,15 @@ export function CollectionsGrid() {
                 type="button"
                 onClick={() => setRegion(option.value)}
                 aria-pressed={active}
-                className={`relative border px-3.5 py-2 text-sm transition-colors duration-[var(--dur-base)] ${
+                title={option.label}
+                className={`relative shrink-0 border px-3 py-2.5 text-left text-xs transition-colors duration-[var(--dur-base)] sm:text-sm ${
                   active ? "border-ink text-paper" : "border-ink/25 hover:border-ink"
-                } ${active && !pill ? "bg-ink" : ""}`}
+                } ${active && (!pill || !showPill) ? "bg-ink" : ""}`}
               >
-                {option.label}
+                <span className="sm:hidden">{option.shortLabel}</span>
+                <span className="hidden sm:inline">{option.label}</span>
                 <span
-                  className={`ml-2 font-mono text-[11px] transition-colors ${
+                  className={`ml-2 font-mono text-[10px] transition-colors sm:text-[11px] ${
                     active ? "text-haldi" : "text-kattha"
                   }`}
                 >

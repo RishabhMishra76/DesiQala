@@ -24,7 +24,11 @@ export function HeritageBand() {
       <div className="grid gap-14 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-haldi">03 · Why it matters</p>
-          <p lang="hi" className="mt-6 font-display text-[8rem] leading-[0.9] text-haldi sm:text-[10rem]" aria-hidden>
+          <p
+            lang="hi"
+            className="mt-6 font-display text-[clamp(4rem,22vw,10rem)] leading-[0.9] text-haldi"
+            aria-hidden
+          >
             कला
           </p>
           <p className="mt-6 max-w-sm text-base leading-relaxed text-paper/75">

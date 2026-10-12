@@ -322,3 +322,19 @@ export function getFeaturedCrafts(): Craft[] {
 }
 
 export const craftRegions = [...new Set(crafts.map((c) => c.state))].sort();
+
+const STATE_ABBREV: Record<string, string> = {
+  "Uttar Pradesh": "UP",
+  "West Bengal": "WB",
+  Assam: "Assam",
+  Kerala: "Kerala",
+};
+
+/** Shorter chip labels for narrow viewports; full string remains in `title`. */
+export function formatCraftStateForFilter(state: string, variant: "short" | "full" = "full"): string {
+  if (variant === "full") return state;
+  return state
+    .split(" / ")
+    .map((part) => STATE_ABBREV[part.trim()] ?? part.trim())
+    .join(" · ");
+}

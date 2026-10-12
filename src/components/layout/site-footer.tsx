@@ -14,7 +14,7 @@ export function SiteFooter() {
       <div className="print-border" aria-hidden />
       <div className="jaali bg-ink text-paper">
         <Container className="py-16">
-          <div className="grid gap-12 lg:grid-cols-12">
+          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12">
             <div className="lg:col-span-4">
               <Logo dark />
               <p className="mt-6 max-w-sm text-sm leading-relaxed text-paper/70">

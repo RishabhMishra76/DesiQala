@@ -133,7 +133,7 @@ export function PartnerInquiryForm({
           {buyerTracks.map((track, i) => (
             <label
               key={track.id}
-              className={`cursor-pointer px-4 py-3.5 text-center text-sm font-semibold transition-colors has-checked:bg-ink has-checked:text-paper has-focus-visible:outline-2 has-focus-visible:outline-sindoor ${
+              className={`cursor-pointer px-3 py-3.5 text-center text-xs font-semibold transition-colors has-checked:bg-ink has-checked:text-paper has-focus-visible:outline-2 has-focus-visible:outline-sindoor sm:px-4 sm:text-sm ${
                 i === 0 ? "border-r border-ink" : ""
               }`}
             >
@@ -247,9 +247,9 @@ export function PartnerInquiryForm({
           {crafts.map((craft) => (
             <label
               key={craft.slug}
-              className="flex cursor-pointer items-center justify-between gap-3 border-b border-r border-ink/30 px-4 py-3 text-sm transition-colors has-checked:bg-haldi/30"
+              className="flex cursor-pointer flex-col items-start gap-2 border-b border-r border-ink/30 px-4 py-3 text-sm transition-colors has-checked:bg-haldi/30 sm:flex-row sm:items-center sm:justify-between sm:gap-3"
             >
-              <span className="flex items-center gap-3">
+              <span className="flex min-w-0 items-center gap-3">
                 <input
                   type="checkbox"
                   className="check-box"

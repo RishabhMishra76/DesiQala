@@ -15,8 +15,8 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-ink bg-paper">
       <div className="bg-ink text-paper/80">
-        <Container className="flex h-8 items-center justify-center font-mono text-[11px] uppercase tracking-[0.16em]">
-          <span className="truncate">{siteConfig.announcement}</span>
+        <Container className="flex min-h-8 items-center justify-center py-1 font-mono text-[10px] uppercase leading-snug tracking-[0.14em] sm:h-8 sm:py-0 sm:text-[11px] sm:tracking-[0.16em]">
+          <span className="text-center text-balance sm:truncate">{siteConfig.announcement}</span>
         </Container>
       </div>
 

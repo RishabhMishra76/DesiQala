@@ -24,7 +24,7 @@ export function HomeHero() {
           </p>
           <h1
             style={{ "--delay": "80ms" } as CSSProperties}
-            className="rise-in mt-6 font-display text-[3.25rem] leading-[0.98] text-balance sm:text-7xl xl:text-[5.5rem]"
+            className="rise-in mt-6 font-display text-[clamp(2.125rem,9vw,3.25rem)] leading-[0.98] text-balance sm:text-7xl xl:text-[5.5rem]"
           >
             Indian crafts, <em className="text-sindoor">made by hand,</em> supplied wholesale.
           </h1>

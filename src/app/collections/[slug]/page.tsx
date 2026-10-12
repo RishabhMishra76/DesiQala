@@ -80,7 +80,7 @@ export default async function CraftDetailPage({ params }: PageProps) {
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-sindoor">
               {craft.state} · {craft.region}
             </p>
-            <h1 className="mt-4 font-display text-5xl leading-[1.02] sm:text-6xl">{craft.title}</h1>
+            <h1 className="mt-4 font-display text-4xl leading-[1.02] sm:text-5xl md:text-6xl">{craft.title}</h1>
             <p lang="hi" className="mt-2 font-display text-3xl text-sindoor">
               {craft.nameLocal}
             </p>
@@ -121,12 +121,12 @@ export default async function CraftDetailPage({ params }: PageProps) {
             <h2 className="font-display text-3xl sm:text-4xl">More from the catalogue</h2>
             <Link
               href="/collections"
-              className="hidden text-sm font-semibold decoration-sindoor decoration-2 underline-offset-8 hover:underline sm:block"
+              className="shrink-0 text-sm font-semibold decoration-sindoor decoration-2 underline-offset-8 hover:underline"
             >
               All collections →
             </Link>
           </div>
-          <div className="grid gap-x-8 gap-y-12 sm:grid-cols-3">
+          <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {others.map((other) => (
               <CraftPlate key={other.slug} craft={other} size="compact" />
             ))}

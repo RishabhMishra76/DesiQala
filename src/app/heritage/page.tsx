@@ -53,7 +53,7 @@ export default function HeritagePage() {
               <span className="font-display text-5xl leading-none text-sindoor md:col-span-2">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="font-display text-3xl leading-tight md:col-span-4">{item.period}</h3>
+              <h3 className="font-display text-2xl leading-tight sm:text-3xl md:col-span-4">{item.period}</h3>
               <p className="leading-relaxed text-kattha md:col-span-6">{item.detail}</p>
             </li>
           ))}
@@ -67,19 +67,22 @@ export default function HeritagePage() {
           title="A map of craft clusters."
           description="Our catalogue covers several states and grows as we add new artisan partners."
         />
-        <div className="grid border border-ink bg-paper sm:grid-cols-2">
+        <div className="grid gap-px border border-ink bg-ink sm:grid-cols-2">
           {heritageClusters.map((region, i) => {
             const regionCrafts = crafts.filter((c) => c.heritageCluster === region.id);
             const isLastRowSingle = i === heritageClusters.length - 1 && heritageClusters.length % 2 === 1;
             return (
               <article
                 key={region.id}
-                className={`border-ink p-8 not-last:border-b sm:not-last:border-b-0 sm:odd:border-r ${isLastRowSingle ? "sm:col-span-2" : ""} ${i < heritageClusters.length - (heritageClusters.length % 2 || 2) ? "sm:border-b" : ""}`}
+                className={`bg-paper p-6 sm:p-8 ${isLastRowSingle ? "sm:col-span-2" : ""}`}
               >
-                <h3 className="font-display text-3xl">{region.name}</h3>
+                <h3 className="font-display text-2xl leading-tight sm:text-3xl">{region.name}</h3>
                 <ul className="mt-6 space-y-3">
                   {regionCrafts.map((craft) => (
-                    <li key={craft.slug} className="flex items-baseline justify-between gap-4 border-t border-ink/15 pt-3">
+                    <li
+                      key={craft.slug}
+                      className="flex flex-col gap-1 border-t border-ink/15 pt-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
+                    >
                       <Link
                         href={`/collections/${craft.slug}`}
                         className="text-sm font-medium decoration-sindoor underline-offset-4 hover:underline"

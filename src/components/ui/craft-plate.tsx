@@ -78,7 +78,7 @@ export function CraftPlate({
           <div className="mt-2 flex items-baseline justify-between gap-3">
             <h3
               className={`font-display leading-tight decoration-sindoor decoration-1 underline-offset-4 group-hover:underline ${
-                compact ? "text-xl" : "text-2xl"
+                compact ? "text-lg sm:text-xl" : "text-xl sm:text-2xl"
               }`}
             >
               {craft.title}

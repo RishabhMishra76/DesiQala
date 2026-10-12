@@ -15,7 +15,7 @@ export function PageHeader({ label, title, description, local, children }: PageH
       <Container className="grid gap-10 pb-12 pt-14 sm:pb-16 sm:pt-20 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-8">
           <p className="rise-in font-mono text-xs uppercase tracking-[0.18em] text-sindoor">{label}</p>
-          <h1 style={{ "--delay": "80ms" } as CSSProperties} className="rise-in mt-5 font-display text-5xl leading-[1.02] text-balance sm:text-6xl lg:text-7xl">
+          <h1 style={{ "--delay": "80ms" } as CSSProperties} className="rise-in mt-5 font-display text-4xl leading-[1.02] text-balance sm:text-5xl md:text-6xl lg:text-7xl">
             {title}
           </h1>
           {description ? (

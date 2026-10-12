@@ -52,9 +52,14 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-        <div className="mt-16 grid grid-cols-2 gap-6 lg:grid-cols-4">
+        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
           {plates.map((craft) => (
-            <CraftPlate key={craft.slug} craft={craft} size="compact" sizes="(max-width: 1024px) 50vw, 25vw" />
+            <CraftPlate
+              key={craft.slug}
+              craft={craft}
+              size="compact"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            />
           ))}
         </div>
       </Section>
@@ -125,7 +130,7 @@ export default function AboutPage() {
               <p key={i}>{paragraph}</p>
             ))}
           </blockquote>
-          <figcaption className="mt-10 flex items-center gap-4 border-t border-ink pt-5 font-mono text-xs uppercase tracking-[0.14em] text-kattha">
+          <figcaption className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-ink pt-5 font-mono text-xs uppercase tracking-[0.14em] text-kattha">
             <span className="text-ink">{aboutLetter.signoff}</span>
             <span aria-hidden>·</span>
             <span>{aboutLetter.place}</span>
