@@ -1,26 +1,183 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f4ede1;
+  --paper-deep: #eadfcc;
+  --ink: #1c1712;
+  --neel: #1f2f5c;
+  --sindoor: #a8321e;
+  --haldi: #d99a1e;
+  --kattha: #6b5a48;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
+  --color-neel: var(--neel);
+  --color-sindoor: var(--sindoor);
+  --color-haldi: var(--haldi);
+  --color-kattha: var(--kattha);
+  --font-sans: var(--font-hanken), system-ui, sans-serif;
+  --font-display: var(--font-tiro), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  caret-color: var(--sindoor);
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--haldi);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sindoor);
+  outline-offset: 2px;
+}
+
+/* Block-print border strip: diamond buti flanked by indigo dots. */
+.print-border {
+  height: 26px;
+  border-block: 1px solid var(--ink);
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='24' viewBox='0 0 36 24'%3E%3Cpath d='M18 5 L25 12 L18 19 L11 12Z' fill='%23A8321E'/%3E%3Ccircle cx='18' cy='12' r='1.8' fill='%23F4EDE1'/%3E%3Ccircle cx='3' cy='12' r='2' fill='%231F2F5C'/%3E%3Ccircle cx='33' cy='12' r='2' fill='%231F2F5C'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: center;
+}
+
+/* Jaali lattice for dark indigo and ink surfaces. */
+.jaali {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='none' stroke='%23F4EDE1' stroke-opacity='0.08'%3E%3Cpath d='M16 0 Q23 8 16 16 Q9 8 16 0Z M16 16 Q23 24 16 32 Q9 24 16 16Z M0 16 Q8 9 16 16 Q8 23 0 16Z M16 16 Q24 9 32 16 Q24 23 16 16Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Motion */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-base: 260ms;
+  --dur-slow: 420ms;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); }
+  60% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Staggered entrance; set --delay inline per element. */
+.rise-in {
+  animation: rise-in 700ms var(--ease-out) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.fade-in {
+  animation: fade-in var(--dur-slow) var(--ease-out) both;
+}
+
+/* Arrow nudges on hover for any link or button containing a lucide arrow. */
+.lucide-arrow-right,
+.lucide-arrow-up-right {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+a:hover .lucide-arrow-right,
+button:hover .lucide-arrow-right {
+  transform: translateX(4px);
+}
+a:hover .lucide-arrow-up-right,
+button:hover .lucide-arrow-up-right {
+  transform: translate(3px, -3px);
+}
+
+[aria-invalid="true"] {
+  animation: shake 360ms var(--ease-in-out);
+}
+
+.check-box {
+  appearance: none;
+  display: inline-grid;
+  place-content: center;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast);
+}
+.check-box::after {
+  content: "";
+  width: 0.55rem;
+  height: 0.3rem;
+  border-left: 2px solid var(--paper);
+  border-bottom: 2px solid var(--paper);
+  transform: rotate(-45deg) scale(0);
+  margin-top: -2px;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.check-box:checked {
+  background: var(--sindoor);
+  border-color: var(--sindoor);
+  animation: pop var(--dur-base) var(--ease-out);
+}
+.check-box:checked::after {
+  transform: rotate(-45deg) scale(1);
+}
+
+.draw-check path {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: draw 500ms var(--ease-out) 200ms forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+.rule-double {
+  border-top: 3px double var(--ink);
 }
